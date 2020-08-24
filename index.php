@@ -37,7 +37,16 @@
 $bigs=$Type->all(['parent'=>0]);
 foreach($bigs as $b){
 ?>
-<a href="?type=<?=$b['id'];?>"><?=$b['text'];?>(<?=$Goods->count(['sh'=>1,'big'=>$b['id']]);?>)</a>
+<div class="ww"><a href="?type=<?=$b['id'];?>"><?=$b['text'];?>(<?=$Goods->count(['sh'=>1,'big'=>$b['id']]);?>)</a>
+<?php
+$mids=$Type->all(['parent'=>$b['id']]);
+foreach($mids as $m){
+        ?>
+<div class="s"><a style="background:greenyellow" href="?type=<?=$m['id'];?>"><?=$m['text'];?>(<?=$Goods->count(['sh'=>1,'mid'=>$m['id']]);?>)</a></div>
+        <?php
+}
+?>
+</div>
 <?php
 }
 ?>
