@@ -31,6 +31,18 @@
                 </div>
                 <div id="left" class="ct">
                         <div style="min-height:400px;">
+<div class="ct">
+<a href="?type=0" class="ww">全部商品(<?=$Goods->count(['sh'=>1]);?>)</a>
+<?php
+$bigs=$Type->all(['parent'=>0]);
+foreach($bigs as $b){
+?>
+<a href="?type=<?=$b['id'];?>"><?=$b['text'];?>(<?=$Goods->count(['sh'=>1,'big'=>$b['id']]);?>)</a>
+<?php
+}
+?>
+
+</div>
                         </div>
                         <span>
                                 <div>進站總人數</div>

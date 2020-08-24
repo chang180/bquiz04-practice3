@@ -1,6 +1,6 @@
-<?php 
-include_once "base.php"; 
-if(empty($_SESSION['admin'])) to ("index.php?do=admin");
+<?php
+include_once "base.php";
+if (empty($_SESSION['admin'])) to("index.php?do=admin");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0057)?do=admin -->
@@ -26,12 +26,27 @@ if(empty($_SESSION['admin'])) to ("index.php?do=admin");
 		</div>
 		<div id="left" class="ct">
 			<div style="min-height:400px;">
-				<a href="?do=admin">管理權限設置</a>
-				<a href="?do=th">商品分類與管理</a>
-				<a href="?do=order">訂單管理</a>
-				<a href="?do=mem">會員管理</a>
-				<a href="?do=bot">頁尾版權管理</a>
-				<a href="?do=news">最新消息管理</a>
+				<?php
+				if ($_SESSION['admin'] == 'admin') {
+				?>
+					<a href="?do=admin">管理權限設置</a>
+					<a href="?do=th">商品分類與管理</a>
+					<a href="?do=order">訂單管理</a>
+					<a href="?do=mem">會員管理</a>
+					<a href="?do=bot">頁尾版權管理</a>
+					<a href="?do=news">最新消息管理</a>
+				<?Php
+				} else {
+					$pr=unserialize($Admin->find(['acc'=>$_SESSION['admin']])['pr']);
+				?>
+                    <a <?=(in_array("1",$pr)?"":"style='display:none'");?>href="?do=th">商品分類與管理</a>
+					<a <?=(in_array("2",$pr)?"":"style='display:none'");?>href="?do=order">訂單管理</a>
+					<a <?=(in_array("3",$pr)?"":"style='display:none'");?>href="?do=mem">會員管理</a>
+					<a <?=(in_array("4",$pr)?"":"style='display:none'");?>href="?do=bot">頁尾版權管理</a>
+					<a <?=(in_array("5",$pr)?"":"style='display:none'");?>href="?do=news">最新消息管理</a>
+				<?php
+				}
+				?>
 				<a href="?do=logout" style="color:#f00;">登出</a>
 			</div>
 		</div>
@@ -43,7 +58,7 @@ if(empty($_SESSION['admin'])) to ("index.php?do=admin");
 			?>
 		</div>
 		<div id="bottom" style="line-height:70px; color:#FFF; background:url(icon/bot.png);" class="ct">
-		<?=$bottom['bottom'];?> </div>
+			<?= $bottom['bottom']; ?> </div>
 	</div>
 
 </body>
